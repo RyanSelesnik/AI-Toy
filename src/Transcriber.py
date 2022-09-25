@@ -13,7 +13,16 @@ class Transcriber():
         self.model = Wav2Vec2ForCTC.from_pretrained(model_name)
 
     def transcribe(self, audio_buffer, use_lm=True):
-        '''Transcribe audio to text'''
+        """Transcribes audio to text
+
+            Args:
+                audio_buffer: an array of floats
+                use_lm: a boolean indicating whether to use a language model or not 
+
+            Returns:
+                The transcribed string
+
+        """
 
         if (len(audio_buffer) == 0):
             return ""
@@ -34,7 +43,8 @@ def main():
     dataset = load_dataset(
         "hf-internal-testing/librispeech_asr_demo", "clean", split="validation")
     audio_sample = dataset[2]
-    transcription = transcriber.transcribe(audio_sample)
+    print(audio_sample["audio"]["array"])
+    transcription = transcriber.transcribe(audio_sample["audio"]["array"])
     print(transcription)
 
 
