@@ -1,3 +1,4 @@
+from operator import is_not
 import pyaudio
 from Transcriber import Transcriber
 import webrtcvad
@@ -36,16 +37,19 @@ class ASR():
         self.vad_process.start()
 
     def vad_process(device_name, asr_input_queue):
+        """Detects voice activity"""
         vad = webrtcvad.Vad()
-        vad.set_mode(1)
+        # 0 is the least aggressive about filtering out non-speech, 3 is the most aggressive.
+        vad.set_mode(2)
 
         audio = pyaudio.PyAudio()
         FORMAT = pyaudio.paInt16
         CHANNELS = 1
-        RATE = 16000
+        SAMPLE_RATE = 16000
         # A frame must be either 10, 20, or 30 ms in duration for webrtcvad
-        FRAME_DURATION = 30
-        CHUNK = int(RATE * FRAME_DURATION / 1000)
+        WINDOW_DURATION = 30
+        # Essentially how many samples per 30 ms
+        SAMPLES_PER_WINDOW = int(SAMPLE_RATE * WINDOW_DURATION / 1000)
         RECORD_SECONDS = 50
 
         microphones = ASR.list_microphones(audio)
@@ -55,22 +59,29 @@ class ASR():
         stream = audio.open(input_device_index=selected_input_device_id,
                             format=FORMAT,
                             channels=CHANNELS,
-                            rate=RATE,
+                            rate=SAMPLE_RATE,
                             input=True,
-                            frames_per_buffer=CHUNK)
+                            frames_per_buffer=SAMPLES_PER_WINDOW)
 
         frames = b''
+        NUM_OF_WINDOW_DURATIONS = 50
+        is_not_speech = 0
         while True:
             if ASR.exit_event.is_set():
                 break
-            frame = stream.read(CHUNK, exception_on_overflow=False)
-            is_speech = vad.is_speech(frame, RATE)
+            frame = stream.read(SAMPLES_PER_WINDOW,
+                                exception_on_overflow=False)
+            is_speech = vad.is_speech(frame, SAMPLE_RATE)
             if is_speech:
                 frames += frame
-            else:
+            elif is_not_speech > NUM_OF_WINDOW_DURATIONS:
                 if len(frames) > 1:
                     asr_input_queue.put(frames)
                 frames = b''
+                is_not_speech = 0
+            else:
+                is_not_speech += 1
+
         stream.stop_stream()
         stream.close()
         audio.terminate()
@@ -84,8 +95,10 @@ class ASR():
             if audio_frames == "close":
                 break
 
+            # 2^15-1 = 32767
+            MAX_16_BIT_INT = 32767
             float64_buffer = np.frombuffer(
-                audio_frames, dtype=np.int16) / 32767
+                audio_frames, dtype=np.int16) / MAX_16_BIT_INT
             start = time.perf_counter()
             text = transcriber.transcribe(float64_buffer)
             text = text.lower()
