@@ -100,7 +100,7 @@ class ASR():
             float64_buffer = np.frombuffer(
                 audio_frames, dtype=np.int16) / MAX_16_BIT_INT
             start = time.perf_counter()
-            text = transcriber.transcribe(float64_buffer)
+            text = transcriber.transcribe(float64_buffer, use_lm=False)
             text = text.lower()
             inference_time = time.perf_counter()-start
             sample_length = len(float64_buffer) / 16000  # length in sec
