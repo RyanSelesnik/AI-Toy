@@ -26,6 +26,7 @@ processed_data = list(map(extract_text, flattened_data))
 with open("text.txt", "w") as file:
     file.write(" ".join(processed_data))
 
+os.system("chmod +x installKenLm.sh")
 os.system("kenlm/build/bin/lmplz - o 5 < 'text.txt' > '5gram.arpa' ")
 
 with open("5gram.arpa", "r") as read_file, open("5gram_correct.arpa", "w") as write_file:
@@ -40,3 +41,6 @@ with open("5gram.arpa", "r") as read_file, open("5gram_correct.arpa", "w") as wr
             has_added_eos = True
         else:
             write_file.write(line)
+
+os.system("kenlm/build/bin/build_binary 5gram_correct.arpa 5gram_correct.bin")
+os.system("rm 5gram_correct.arpa 5gram.arpa")
