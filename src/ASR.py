@@ -40,7 +40,7 @@ class ASR():
         """Detects voice activity"""
         vad = webrtcvad.Vad()
         # 0 is the least aggressive about filtering out non-speech, 3 is the most aggressive.
-        vad.set_mode(2)
+        vad.set_mode(3)
 
         audio = pyaudio.PyAudio()
         FORMAT = pyaudio.paInt16
@@ -64,7 +64,7 @@ class ASR():
                             frames_per_buffer=SAMPLES_PER_WINDOW)
 
         frames = b''
-        NUM_OF_WINDOW_DURATIONS = 50
+        NUM_OF_WINDOW_DURATIONS = 1
         is_not_speech = 0
         while True:
             if ASR.exit_event.is_set():
@@ -87,7 +87,7 @@ class ASR():
         audio.terminate()
 
     def asr_process(model_name, in_queue, output_queue):
-        transcriber = Transcriber(model_name)
+        transcriber = Transcriber(model_name, use_lm=True)
 
         print("\nlistening to your voice\n")
         while True:
