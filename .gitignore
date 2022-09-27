@@ -2,6 +2,7 @@
 env
 *.arpa
 kenlm
+*.bin
 .vscode
 __pycache__
 # VSCode
