@@ -64,7 +64,7 @@ class ASR():
                             frames_per_buffer=SAMPLES_PER_WINDOW)
 
         frames = b''
-        NUM_OF_WINDOW_DURATIONS = 1
+        NUM_OF_WINDOW_DURATIONS = 100
         is_not_speech = 0
         while True:
             if ASR.exit_event.is_set():
@@ -133,7 +133,7 @@ class ASR():
 if __name__ == "__main__":
     print("Live ASR")
 
-    asr = ASR("facebook/wav2vec2-base-100h")
+    asr = ASR("facebook/wav2vec2-base-960h")
     # asr = ASR("patrickvonplaten/wav2vec2-base-100h-with-lm")
 
     asr.start()

@@ -3,6 +3,7 @@ from transformers import Wav2Vec2Processor, Wav2Vec2ForCTC, Wav2Vec2ProcessorWit
 from pyctcdecode import build_ctcdecoder
 import json
 import argparse
+import os
 
 
 from datasets import load_dataset
@@ -19,16 +20,18 @@ class Transcriber():
 
             self.sorted_vocab_dict = {k.lower(): v for k, v in sorted(
                 vocab_dict.items(), key=lambda item: item[1])}
-            vocab_file = "vocab.json"
+            vocab_file = "LM_vocab.json"
 
             with open(vocab_file, "w", encoding="utf-8") as f:
                 f.write(json.dumps(self.sorted_vocab_dict, ensure_ascii=False))
 
             self.processor.tokenizer = Wav2Vec2CTCTokenizer(vocab_file)
+            os.system(f'rm {vocab_file}')
             self.processor.save_pretrained("./processor")
             self.processor = Wav2Vec2Processor.from_pretrained(
                 "./processor", eos_token=None, bos_token=None)
 
+            os.system("rm -r ./processor")
             vocab_dict = self.processor.tokenizer.get_vocab()
             self.sorted_vocab_dict = {k.lower(): v for k, v in sorted(
                 vocab_dict.items(), key=lambda item: item[1])}
@@ -76,11 +79,14 @@ class Transcriber():
 
 def main(args):
     transcriber = Transcriber('facebook/wav2vec2-base-100h', args.use_lm)
+    librispeech_eval = load_dataset("librispeech_asr", "clean", split="test")
+
     dataset = load_dataset(
         "hf-internal-testing/librispeech_asr_demo", "clean", split="validation")
     audio_sample = dataset[2]
-    transcription = transcriber.transcribe(audio_sample["audio"]["array"])
-    print(transcription)
+    text = dataset.map(transcriber.transcribe, args(args.use_lm))
+    # transcription = transcriber.transcribe(audio_sample["audio"]["array"])
+    # print(transcription)
 
 
 if __name__ == '__main__':
