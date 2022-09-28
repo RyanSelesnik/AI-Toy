@@ -16,13 +16,15 @@ class ResponseGenerator():
     def getResponse(self, query, args):
         ResponseGenerator.encode(self, query)
         self.chat_history_ids = self.model.generate(self.bot_input_ids, max_length=1000, pad_token_id=self.processor.eos_token_id, num_beams=args.bw, early_stopping=args.stopping, temperature=args.temp)
-        print("DialoGPT: {}".format(self.processor.decode(self.chat_history_ids[:, self.bot_input_ids.shape[-1]:][0], skip_special_tokens=True)))
+        response="DialoGPT: {}".format(self.processor.decode(self.chat_history_ids[:, self.bot_input_ids.shape[-1]:][0], skip_special_tokens=True))
+        return response
         
 def main(args):
     response_generator = ResponseGenerator("microsoft/DialoGPT-medium")
     while True:
         user_query = input(">> User: ")
-        response_generator.getResponse(user_query, args)
+        response=response_generator.getResponse(user_query, args)
+        print(response)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Setting the arguments in DialoGPT decoder')
