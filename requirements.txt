@@ -1,3 +1,10 @@
 pandas
 transformers
-# tensorflow
+torch
+datasets
+soundfile
+librosa
+pyctcdecode
+https://github.com/kpu/kenlm/archive/master.zip
+pyaudio
+webrtcvad
