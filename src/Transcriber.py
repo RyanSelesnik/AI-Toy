@@ -4,13 +4,14 @@ from pyctcdecode import build_ctcdecoder
 import json
 import argparse
 import os
+from jiwer import wer
 
 
 from datasets import load_dataset
 
 
 class Transcriber():
-    def __init__(self, model_name, use_lm):
+    def __init__(self, model_name, use_lm=True):
         self.use_lm = use_lm
         self.processor = Wav2Vec2Processor.from_pretrained(model_name)
         self.model = Wav2Vec2ForCTC.from_pretrained(model_name)
@@ -45,7 +46,7 @@ class Transcriber():
                 tokenizer=self.processor.tokenizer,
                 decoder=decoder)
 
-    def transcribe(self, audio_buffer, use_lm=True):
+    def transcribe(self, audio_buffer):
         """Transcribes audio to text
 
             Args:
@@ -78,15 +79,34 @@ class Transcriber():
 
 
 def main(args):
-    transcriber = Transcriber('facebook/wav2vec2-base-100h', args.use_lm)
-    librispeech_eval = load_dataset("librispeech_asr", "clean", split="test")
+
+    # librispeech_eval = load_dataset("librispeech_asr", "clean", split="test")
 
     dataset = load_dataset(
         "hf-internal-testing/librispeech_asr_demo", "clean", split="validation")
     audio_sample = dataset[2]
-    text = dataset.map(transcriber.transcribe, args(args.use_lm))
-    # transcription = transcriber.transcribe(audio_sample["audio"]["array"])
-    # print(transcription)
+
+    transcriber_lm_100_h = Transcriber(
+        'facebook/wav2vec2-base-100h', use_lm=True)
+    transcribed_wo_lm_100_h = Transcriber(
+        'facebook/wav2vec2-base-100h', use_lm=False)
+    trans_text_with_lm_100_h = []
+    trans_tex_wo_lm_100_h = []
+
+    for audio in dataset['audio']:
+        trans_text_with_lm_100_h.append(
+            transcriber_lm_100_h.transcribe(audio['array']))
+        trans_tex_wo_lm_100_h.append(
+            transcribed_wo_lm_100_h.transcribe(audio['array']))
+
+    trans_text_with_lm_100_h = [text.upper()
+                                for text in trans_text_with_lm_100_h]
+
+    trans_tex_wo_lm_100_h = [text.upper() for text in trans_tex_wo_lm_100_h]
+
+    print(f'with LM: {wer(dataset["text"], trans_text_with_lm_100_h  )}')
+
+    print(f'without LM: {wer(dataset["text"], trans_tex_wo_lm_100_h  )}')
 
 
 if __name__ == '__main__':
@@ -103,7 +123,7 @@ if __name__ == '__main__':
             raise argparse.ArgumentTypeError('Boolean value expected.')
 
     parser.add_argument(
-        "--use_lm", default=False, type=str2bool, required=True, help="Use a language model"
+        "--use_lm", default=False, type=str2bool, help="Use a language model"
     )
     args = parser.parse_args()
     main(args)
