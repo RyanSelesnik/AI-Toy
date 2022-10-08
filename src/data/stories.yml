@@ -1,6 +1,16 @@
 version: "3.1"
 
 stories:
+# TODO: add unhappy paths
+
+- story: fizz buzz happy path 1
+  steps:
+    - intent: play_fizz_buzz
+    - action: utter_play_fizz_buzz
+    - intent: fizz_buzz_entry
+    - action: action_play_fizz_buzz
+    - intent: fizz_buzz_entry
+    - action: action_play_fizz_buzz
 
 - story: happy path
   steps:

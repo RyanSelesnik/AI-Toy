@@ -89,3 +89,28 @@ nlu:
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
+
+- intent: play_fizz_buzz
+  examples: |
+    - I would like to play fizzbuzz 
+    - fizz buzz please
+    - lets play fizz buzz
+
+- intent: fizz_buzz_entry
+  examples: |
+    - [fizz](fizz_buzz_entry)
+    - [buzz](fizz_buzz_entry) 
+    -[fozz bizz](fizz_buzz_entry)
+    - I think it is [fizz](fizz_buzz_entry)
+    - [fizzbuzz](fizz_buzz_entry)
+    - [fizz buzz](fizz_buzz_entry)
+    - fizzbuzz(fizz_buzz_entry)
+    - [1](fizz_buzz_number)
+    - ummm [2](fizz_buzz_number)
+    - I think its [4](fizz_buzz_number)
+  
+- regex: fizz_buzz_number 
+ # fizz buzz goes from 1 - 100
+  examples: |
+    - \b\d{1,2}\b
+ 

@@ -11,3 +11,8 @@ rules:
   steps:
   - intent: bot_challenge
   - action: utter_iamabot
+
+- rule: Play Fizz buzz 
+  steps:
+    - intent: play_fizz_buzz
+    - action: utter_play_fizz_buzz
