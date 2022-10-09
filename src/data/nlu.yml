@@ -1,11 +1,30 @@
 version: "3.1"
 
-nlu:
+nlu: 
+# - lookup: items
+#   files: |
+#     - data/memory_game/items.yml
+
+- intent: inform
+  examples: |
+    - I went to the market and I bought [milk](items), [cookies](items), and [chocolate](items)
+    - I went and bought [milk](items), [cookies](items), and [chocolate](items)
+    - I went and bought [bread](items)
+    - I went and bought [food](items), a [barbie](items)
+    - I went to the market and bought [clothes](items), [furniture](items), [sauce](items), [kitchen](items)
+    - I went to the market and I bought [paper](items)
+    - I went to the market and I bought a [cupboard](items)
+    - I bought [fruit](items), [vegetables](items), a [pie](items), and [pants](items)
+    - I went to the market and I bought a [dress](items), a [skirt](items), [pancakes](items), and an [oven](items)
+
 - intent: greet
   examples: |
     - hey
     - hello
     - hi
+    - hiya
+    - heya
+    - morning 
     - hello there
     - good morning
     - good evening
@@ -15,7 +34,14 @@ nlu:
     - hey dude
     - goodmorning
     - goodevening
-    - good afternoon
+    - good 
+  
+- intent: choose_memory_game
+  examples: | 
+    - I'd like to play the memory game 
+    - I want to play the memory game
+    - Can we play the memory game?
+    - Memory game please!
 
 - intent: goodbye
   examples: |
@@ -34,6 +60,9 @@ nlu:
   examples: |
     - yes
     - y
+    - ya
+    - ye
+    - yip
     - indeed
     - of course
     - that sounds good
@@ -49,43 +78,13 @@ nlu:
     - no way
     - not really
 
-- intent: mood_great
-  examples: |
-    - perfect
-    - great
-    - amazing
-    - feeling like a king
-    - wonderful
-    - I am feeling very good
-    - I am great
-    - I am amazing
-    - I am going to save the world
-    - super stoked
-    - extremely good
-    - so so perfect
-    - so good
-    - so perfect
-
-- intent: mood_unhappy
-  examples: |
-    - my day was horrible
-    - I am sad
-    - I don't feel very well
-    - I am disappointed
-    - super sad
-    - I'm so sad
-    - sad
-    - very sad
-    - unhappy
-    - not good
-    - not very good
-    - extremly sad
-    - so saad
-    - so sad
-
 - intent: bot_challenge
   examples: |
     - are you a bot?
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
+    - are you a toy?
+    - are you a toy or a human?
+    - are you a robot?
+

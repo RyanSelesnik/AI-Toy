@@ -11,3 +11,8 @@ rules:
   steps:
   - intent: bot_challenge
   - action: utter_iamabot
+
+# - rule: Play the memory game
+#   steps:
+#   - intent: play_memory_game
+#   - action: action_play_memory_game
