@@ -1,5 +1,6 @@
 import argparse
 import io
+from re import I
 from pydub import AudioSegment
 import speech_recognition as sr
 import whisper
@@ -25,9 +26,6 @@ parser.add_argument("--pause", default=0.8,
                     help="Minimum length of silence (sec) that will register as the end of a phrase", type=float)
 args = parser.parse_args()
 
-temp_dir = tempfile.mkdtemp()
-save_path = os.path.join(temp_dir, "temp.wav")
-
 
 class SpokenDialogueSystem():
 
@@ -39,35 +37,46 @@ class SpokenDialogueSystem():
         self.audio_model = whisper.load_model(transcrinber_model)
 
         # load the speech recognizer with CLI settings
-        self.r = sr.Recognizer()
-        self.r.energy_threshold = args.energy
-        self.r.pause_threshold = args.pause
-        self.r.dynamic_energy_threshold = args.dynamic_energy
+        self.speech_engine = sr.Recognizer()
+        self.speech_engine.energy_threshold = args.energy
+        self.speech_engine.pause_threshold = args.pause
+        self.speech_engine.dynamic_energy_threshold = args.dynamic_energy
+
+        temp_dir = tempfile.mkdtemp()
+        self.save_path = os.path.join(temp_dir, "temp.wav")
+
+    def record_audio_stream(self, source):
+        # record audio stream into wav
+        self.speech_engine.adjust_for_ambient_noise(source)
+        audio = self.speech_engine.listen(source)
+        data = io.BytesIO(audio.get_wav_data())
+        return AudioSegment.from_file(data)
+
+    def transcribe(self):
+        if args.english:
+            result = self.audio_model.transcribe(
+                self.save_path, language='english')
+        else:
+            result = self.audio_model.transcribe(self.save_path)
+
+        if not args.verbose:
+            return result["text"]
+        else:
+            return result
 
     def interact(self) -> str:
         print("Speak...")
         with sr.Microphone(sample_rate=16000) as source:
             while True:
 
-                # record audio stream into wav
-                audio = self.r.listen(source)
-                data = io.BytesIO(audio.get_wav_data())
-                audio_clip = AudioSegment.from_file(data)
-                audio_clip.export(save_path, format="wav")
+                audio_clip = self.record_audio_stream(source)
+                audio_clip.export(self.save_path, format="wav")
 
-                if args.english:
-                    result = self.audio_model.transcribe(
-                        save_path, language='english')
-                    response = self.get_bot_response(result['text'])
-                else:
-                    result = self.audio_model.transcribe(save_path)
+                predicted_text = self.transcribe()
+                response = self.get_bot_response(predicted_text)
 
-                if not args.verbose:
-                    predicted_text = result["text"]
-                    print("Input: " + predicted_text)
-                    print(f"Bot response: {response}")
-                else:
-                    print(result)
+                print(f'input: {predicted_text}')
+                print(f'bot response: {response}')
 
                 if self.check_stop_word(predicted_text):
                     break
@@ -78,8 +87,11 @@ class SpokenDialogueSystem():
             "sender": "test_user",
             "message": transcribed_text
         }
-        response = requests.post(url, json=payload).json()
-        return response[0]['text']
+        responses = requests.post(url, json=payload).json()
+        full_response = ""
+        for response in responses:
+            full_response += response['text']
+        return full_response
 
     def check_stop_word(self, predicted_text: str) -> bool:
         import re
