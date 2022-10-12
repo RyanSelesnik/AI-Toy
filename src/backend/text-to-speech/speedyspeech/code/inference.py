@@ -31,6 +31,7 @@ from melgan.utils.hparams import HParam
 from hparam import HPStft, HPText
 from utils.text import TextProcessor
 from functional import mask
+
 class textToSpeech():
 
     def __init__(self):
@@ -51,8 +52,9 @@ class textToSpeech():
 
     def getText(self, args):
         print('Processing text')
+        input = "Hey there. \n"
         txt_processor = TextProcessor(HPText.graphemes, phonemize=HPText.use_phonemes)
-        text = [t.strip() for t in sys.stdin.readlines()]
+        text = [input.strip()]
         phonemes, plen = txt_processor(text)
         # append more zeros - avoid cutoff at the end of the largest sequence
         phonemes = torch.cat((phonemes, torch.zeros(len(phonemes), 5).long() ), dim=-1)
