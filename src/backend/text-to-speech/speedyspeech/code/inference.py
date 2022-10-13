@@ -31,65 +31,65 @@ from melgan.utils.hparams import HParam
 from hparam import HPStft, HPText
 from utils.text import TextProcessor
 from functional import mask
-
 class textToSpeech():
 
-    def __init__(self):
-        pass
+    def __init__(self, m="", melgan="", spec=""):
+        self.m = m
+        self.melgan=melgan
+        self.spec=spec
 
     def loadCheckpoints(self, args):
         print('Loading model checkpoints')
-        m = SpeedySpeech(
+        self.m = SpeedySpeech(
             device=args.device
         ).load(args.speedyspeech_checkpoint, map_location=args.device)
-        m.eval()
+        self.m.eval()
         checkpoint = torch.load(args.melgan_checkpoint, map_location=args.device)
         hp = HParam("code/melgan/config/default.yaml")
-        melgan = Generator(hp.audio.n_mel_channels).to(args.device)
-        melgan.load_state_dict(checkpoint["model_g"])
-        melgan.eval(inference=False)
-        return m, melgan
+        self.melgan = Generator(hp.audio.n_mel_channels).to(args.device)
+        self.melgan.load_state_dict(checkpoint["model_g"])
+        self.melgan.eval(inference=False)
 
-    def getText(self, args):
+    def getSpokenResponse(self, user_input, device='cpu'):
         print('Processing text')
-        input = "Hey there. \n"
         txt_processor = TextProcessor(HPText.graphemes, phonemize=HPText.use_phonemes)
-        text = [input.strip()]
+        text = [user_input.strip()]
         phonemes, plen = txt_processor(text)
         # append more zeros - avoid cutoff at the end of the largest sequence
         phonemes = torch.cat((phonemes, torch.zeros(len(phonemes), 5).long() ), dim=-1)
-        phonemes = phonemes.to(args.device)
-        return phonemes, plen
+        phonemes = phonemes.to(device)
+        # return phonemes, plen
+        self.synthesiseSpeech(phonemes,plen)
+        self.generateAudio()
 
-    def synthesiseSpeech(self, phonemes, plen, m):
+    def synthesiseSpeech(self, phonemes, plen, device='cpu'):
         print('Synthesizing')   
         # generate spectrograms
         with torch.no_grad():
-            spec, durations = m((phonemes, plen))
+            self.spec, durations = self.m((phonemes, plen))
         # invert to log(mel-spectrogram)
-        spec = m.collate.norm.inverse(spec)
+        self.spec = self.m.collate.norm.inverse(self.spec)
         # mask with pad value expected by MelGan
-        msk = mask(spec.shape, durations.sum(dim=-1).long(), dim=1).to(args.device)
-        spec = spec.masked_fill(~msk, -11.5129)
+        msk = mask(self.spec.shape, durations.sum(dim=-1).long(), dim=1).to(device)
+        self.spec = self.spec.masked_fill(~msk, -11.5129)
         # Append more pad frames to improve end of the longest sequence
-        spec = torch.cat((spec.transpose(2,1), -11.5129*torch.ones(len(spec), HPStft.n_mel, 5).to(args.device)), dim=-1)
-        return spec
+        self.spec = torch.cat((self.spec.transpose(2,1), -11.5129*torch.ones(len(self.spec), HPStft.n_mel, 5).to(device)), dim=-1)
 
-    def generateAudio(self, melgan, spec):
+    def generateAudio(self, audio_folder='synthesized_audio'):
         # generate audio
         with torch.no_grad():
-            audio = melgan(spec).squeeze(1)
+            audio = self.melgan(self.spec).squeeze(1)
         print('Saving audio')
         # TODO: cut audios to proper length
         for i,a in enumerate(audio.detach().cpu().numpy()):
-            write_wav(os.path.join(args.audio_folder,f'{i}.wav'), a, HPStft.sample_rate, norm=False)
+            write_wav(os.path.join(audio_folder,f'{i}.wav'), a, HPStft.sample_rate, norm=False)
 
 def main(args):
     generator = textToSpeech()
-    m, melgan = generator.loadCheckpoints(args)
-    phonemes, plen = generator.getText(args)
-    spec = generator.synthesiseSpeech(phonemes, plen, m)
-    generator.generateAudio(melgan, spec)
+    generator.loadCheckpoints(args)
+    # phonemes, plen = generator.getText(args, "Hi Rachel.")
+    generator.getSpokenResponse("Hi Rachel.")
+    # spec = generator.synthesiseSpeech(phonemes, plen, m)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
