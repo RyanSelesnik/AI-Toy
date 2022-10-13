@@ -56,7 +56,9 @@ class SpokenDialogueSystem():
     def transcribe(self):
         if args.english:
             result = self.audio_model.transcribe(
-                self.save_path, language='english')
+                self.save_path,
+                language='english',
+                temperature=0.2)
         else:
             result = self.audio_model.transcribe(self.save_path)
 
@@ -71,16 +73,28 @@ class SpokenDialogueSystem():
             while True:
 
                 audio_clip = self.record_audio_stream(source)
+                # Save audio clip to save_path
                 audio_clip.export(self.save_path, format="wav")
 
+                # Covert recorded audio to text
                 predicted_text = self.transcribe()
+
+                # If the predicted text is not empty, get a response from the backend
                 if predicted_text != '':
                     response = self.get_bot_response(predicted_text)
+
                     print(f'input: {predicted_text}')
                     print(f'bot response: {response}')
 
                 if self.check_stop_word(predicted_text):
                     break
+
+    # def text_to_speech(self, text):
+    #     # url =
+    #     payload = {
+    #         "text": text
+    #     }
+    #     response = requests.post(url, json=payload).json()
 
     def get_bot_response(self, transcribed_text):
         url = 'http://0.0.0.0:5005/webhooks/rest/webhook'
@@ -99,6 +113,7 @@ class SpokenDialogueSystem():
         return full_response
 
     def check_stop_word(self, predicted_text: str) -> bool:
+        # Checks for the stop word to terminate the system
         pattern = re.compile('[\W_]+', re.UNICODE)
         return pattern.sub('', predicted_text).lower() == args.stop_word
 
