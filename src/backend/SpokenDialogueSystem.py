@@ -1,12 +1,13 @@
 import argparse
 import io
-from re import I
+import re
 from pydub import AudioSegment
 import speech_recognition as sr
 import whisper
 import tempfile
 import os
 import requests
+
 
 parser = argparse.ArgumentParser(
     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -64,7 +65,7 @@ class SpokenDialogueSystem():
         else:
             return result
 
-    def interact(self) -> str:
+    def interact(self):
         print("Speak...")
         with sr.Microphone(sample_rate=16000) as source:
             while True:
@@ -73,10 +74,10 @@ class SpokenDialogueSystem():
                 audio_clip.export(self.save_path, format="wav")
 
                 predicted_text = self.transcribe()
-                response = self.get_bot_response(predicted_text)
-
-                print(f'input: {predicted_text}')
-                print(f'bot response: {response}')
+                if predicted_text != '':
+                    response = self.get_bot_response(predicted_text)
+                    print(f'input: {predicted_text}')
+                    print(f'bot response: {response}')
 
                 if self.check_stop_word(predicted_text):
                     break
@@ -90,11 +91,12 @@ class SpokenDialogueSystem():
         responses = requests.post(url, json=payload).json()
         full_response = ""
         for response in responses:
-            full_response += response['text']
+            if 'text' in response:
+                full_response += f"{response['text']}\n"
+
         return full_response
 
     def check_stop_word(self, predicted_text: str) -> bool:
-        import re
         pattern = re.compile('[\W_]+', re.UNICODE)
         return pattern.sub('', predicted_text).lower() == args.stop_word
 
