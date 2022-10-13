@@ -90,7 +90,9 @@ class SpokenDialogueSystem():
         }
         responses = requests.post(url, json=payload).json()
         full_response = ""
+        # Loop through all bot responses
         for response in responses:
+            # If its a textual response
             if 'text' in response:
                 full_response += f"{response['text']}\n"
 
