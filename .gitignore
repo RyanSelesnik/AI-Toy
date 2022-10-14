@@ -283,4 +283,5 @@ rasa/keys
 .netlify
 *.code-workspace
 Footer
+synethesized_audio
 
