@@ -34,7 +34,7 @@ from melgan.utils.hparams import HParam
 from hparam import HPStft, HPText
 from utils.text import TextProcessor
 from functional import mask
-
+from torch.profiler import profile, record_function, ProfilerActivity
 
 class TextToSpeech():
 
@@ -66,7 +66,6 @@ class TextToSpeech():
         phonemes = torch.cat(
             (phonemes, torch.zeros(len(phonemes), 5).long()), dim=-1)
         phonemes = phonemes.to(device)
-        # return phonemes, plen
         self.synthesise_speech(phonemes, plen)
         self.generate_audio()
 
@@ -98,8 +97,11 @@ class TextToSpeech():
 
 def main(args):
     generator = TextToSpeech()
-    generator.load_checkpoints(args)
-    generator.get_spoken_response("Hey there how are you")
+    with torch.autograd.profiler.profile(profile_memory=True) as prof:
+        generator.load_checkpoints(args)
+        generator.get_spoken_response("Hey there how are you")
+    print(prof.key_averages().table(sort_by="self_cpu_time_total"))
+    print("Total average CPU memory usage: ", prof.total_average().self_cpu_memory_usage, "bytes")
 
 
 if __name__ == "__main__":
