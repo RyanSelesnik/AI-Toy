@@ -17,15 +17,17 @@ nlu:
     - goodevening
     - good afternoon
 
+- intent: play_math_game_count
+  examples: |
+    - I want to play the counting game 
+    - I want to count to ten 
+    - Can i count 
+
 - intent: math_game_count
   examples: | 
-    - [one](number), [two](math_game_number), [three](math_game_number) 
+    - [one](math_game_number), [two](math_game_number), [three](math_game_number) 
     - um [one](math_game_number)
     - yay [one](math_game_number)
-
-- lookup: math_game_number
-  examples: |
-    data/numbers.txt
 
 
 - intent: goodbye

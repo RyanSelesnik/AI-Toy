@@ -9,16 +9,20 @@ intents:
   - mood_unhappy
   - bot_challenge
   - math_game_count
+  - play_math_game_count
+
+actions:
+  - action_math_game_count
 
 entities:
   - math_game_number
 
 slots:
   math_game_number:
-  type: list
-  mappings:
-  - type: from_entity
-    entity: math_game_number
+    type: list
+    mappings:
+    - type: from_entity
+      entity: math_game_number
 
 
 responses:
@@ -40,6 +44,9 @@ responses:
 
   utter_iamabot:
   - text: "I am a bot, powered by Rasa."
+
+  utter_start_math_game_count:
+    - text: "Great, why don't you show me how far you can count, starting from one?"
 
 session_config:
   session_expiration_time: 60
