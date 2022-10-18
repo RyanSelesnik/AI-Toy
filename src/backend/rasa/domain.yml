@@ -8,6 +8,18 @@ intents:
   - mood_great
   - mood_unhappy
   - bot_challenge
+  - math_game_count
+
+entities:
+  - math_game_number
+
+slots:
+  math_game_number:
+  type: list
+  mappings:
+  - type: from_entity
+    entity: math_game_number
+
 
 responses:
   utter_greet:

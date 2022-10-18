@@ -17,6 +17,17 @@ nlu:
     - goodevening
     - good afternoon
 
+- intent: math_game_count
+  examples: | 
+    - [one](number), [two](math_game_number), [three](math_game_number) 
+    - um [one](math_game_number)
+    - yay [one](math_game_number)
+
+- lookup: math_game_number
+  examples: |
+    data/numbers.txt
+
+
 - intent: goodbye
   examples: |
     - cu
