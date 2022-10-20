@@ -119,3 +119,12 @@ puzzle
 batman
 spiderman
 superman
+technology
+laptop
+ipad
+ipod
+tablet
+computer
+tv
+animal
+pet

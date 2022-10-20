@@ -16,6 +16,9 @@ nlu:
     - I went to the market and I bought a [cupboard](items)
     - I bought [fruit](items), [vegetables](items), a [pie](items), and [pants](items)
     - I went to the market and I bought a [dress](items), a [skirt](items), [pancakes](items), and an [oven](items)
+    - I went to the shops to buy [tomato sauce](items)
+    - I went to the market to buy a [dog](items)
+    - I went to the market and bought [technology](items), [clothes](items), [food](items), [drinks](items), [fruit](items), [vegetables](items), [appliances](items), [toys](items), [animals](items), [stationery](items)
 
 - intent: greet
   examples: |

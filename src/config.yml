@@ -14,11 +14,17 @@ pipeline:
 #   - name: RegexFeaturizer
 #   - name: LexicalSyntacticFeaturizer
    - name: CountVectorsFeaturizer
-#   - name: CountVectorsFeaturizer
+   - name: CountVectorsFeaturizer
 #     analyzer: char_wb
-#     min_ngram: 1
-#     max_ngram: 4
+   # - name: "SpacyNLP"
+   #   model: "en_core_web_sm"
+   #   case_sentitive: False
+   # - name: SpacyTokenizer
+   # - name: SpacyFeaturizer
+     min_ngram: 1
+     max_ngram: 4
    - name: DIETClassifier
+     use_masked_language_model: True
      epochs: 70
      constrain_similarities: true
 #   - name: EntitySynonymMapper
