@@ -1,3 +1,4 @@
+from html import entities
 from . import math_game_utils
 import os
 
@@ -16,6 +17,11 @@ def test_order_is_preserved():
     """Tests that order is preserved under the mapping"""
     entities = ['five', 'three', 'seven']
     assert [5, 3, 7] == math_game_utils.map_entities_to_ints(entities)
+
+
+def test_numerical_and_string_inputs():
+    entities = ['one', 'TWO', 3, 4, 'five', 6]
+    assert [1, 2, 3, 4, 5, 6] == math_game_utils.map_entities_to_ints(entities)
 
 
 def test_initial_call_to_validate_list():

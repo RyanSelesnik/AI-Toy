@@ -13,7 +13,7 @@ def map_entities_to_ints(entities) -> List[int]:
     int_lookup_dict = {"one": 1, "two": 2, "three": 3, "four": 4,
                        "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10}
 
-    return [int_lookup_dict[entity.lower()] for entity in entities]
+    return [int(entity) if is_int(entity) else int_lookup_dict[entity.lower()] for entity in entities]
 
 
 def list_is_valid(l, path_to_number_file) -> bool:
@@ -38,8 +38,7 @@ def list_is_valid(l, path_to_number_file) -> bool:
     print(list_is_valid)
 
     if list_is_valid and l:
-        with open(path_to_number_file, 'w') as f:
-            f.write(str(l[-1]))
+        store_latest_number(str(l[-1]))
         return True
     else:
         return False
@@ -49,6 +48,13 @@ def store_latest_number(latest_number, path_to_number_file):
     """Stores the last number in a valid number sequence uttered by the user"""
     with open(path_to_number_file, 'w') as f:
         f.write('%d' % latest_number)
+
+
+def is_int(string):
+    try:
+        return type(int(string)) is int
+    except:
+        return False
 
 
 if __name__ == '__main__':
