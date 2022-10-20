@@ -13,7 +13,7 @@ intents:
 
 actions:
   - action_math_game_count
-
+  - action_create_math_game_file
 entities:
   - math_game_number
 

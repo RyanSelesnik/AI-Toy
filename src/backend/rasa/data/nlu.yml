@@ -25,9 +25,10 @@ nlu:
 
 - intent: math_game_count
   examples: | 
-    - [one](math_game_number), [two](math_game_number), [three](math_game_number) 
-    - um [one](math_game_number)
+    - [one](math_game_number), [two](math_game_number), [three](math_game_number), [four](math_game_number), [five](math_game_number), [six](math_game_number), [seven](math_game_number), [eight](math_game_number), [nine](math_game_number), [ten](math_game_number)
+    - um [one](math_game_number), [two](math_game_number)
     - yay [one](math_game_number)
+    - [one](math_game_number), [two](math_game_number), and [three](math_game_number)
 
 
 - intent: goodbye

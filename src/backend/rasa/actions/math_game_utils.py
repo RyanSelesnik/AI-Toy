@@ -25,17 +25,21 @@ def list_is_valid(l, path_to_number_file) -> bool:
         3) the list is not empty
     """
 
-    with open(path_to_number_file, 'r') as f:
+    with open(path_to_number_file, 'r+') as f:
         prev_num = f.read()
 
+    print(f'prev_num: {prev_num}')
     if prev_num != '':
         l.insert(0, int(prev_num))
 
+    print(l)
+
     list_is_valid = (sorted(l) == list(range(min(l), max(l)+1)))
+    print(list_is_valid)
 
     if list_is_valid and l:
         with open(path_to_number_file, 'w') as f:
-            f.write('%d' % l[-1])
+            f.write(str(l[-1]))
         return True
     else:
         return False
@@ -48,4 +52,4 @@ def store_latest_number(latest_number, path_to_number_file):
 
 
 if __name__ == '__main__':
-    list_is_valid([1, 2, 3], './latest_number.txt')
+    pass

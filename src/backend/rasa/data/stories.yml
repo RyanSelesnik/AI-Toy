@@ -5,7 +5,8 @@ stories:
 - story: math_game_count happy path 1
   steps:
   - intent: play_math_game_count
-  - action: utter_start_math_game_count
+  - action: utter_start_math_game_count 
+  - action: action_create_math_game_file
   - intent: math_game_count
   - action: action_math_game_count
   - intent: math_game_count
