@@ -51,6 +51,13 @@ def test_multiple_calls_to_validate_list():
         third_invalid_list, path_to_number_file) == False
 
 
+def test_if_reverse_order_list_is_invalid():
+    invalid_list = [3, 2, 1]
+    path_to_number_file = './latest_number.txt'
+    assert math_game_utils.list_is_valid(
+        invalid_list, path_to_number_file) == False
+
+
 def test_empty_list_is_invalid():
     pass
 
