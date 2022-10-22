@@ -10,7 +10,7 @@ def readInTempFile():
     return prev_bot_turn
         
 def computer_turn(user_turn):
-    with open('./data/memory_game/items.txt', "r") as f:
+    with open('./items.txt', "r") as f:
         list_of_objects = f.read().splitlines()
         for item in list_of_objects:
             if item in user_turn:
@@ -47,4 +47,6 @@ def proceedValidTurn(user_turn):
         for entity in new_bot_turn:
             f.write(entity + '\n')
     return new_bot_turn
-        
+
+if __name__ == "__main__":
+    pass

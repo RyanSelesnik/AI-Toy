@@ -1,5 +1,4 @@
-from dis import dis
-import memory_game_utils
+from . import memory_game_utils
 from rasa_sdk.executor import CollectingDispatcher
 
 def test_is_valid_cond_1():
