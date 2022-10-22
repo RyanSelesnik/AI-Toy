@@ -49,3 +49,30 @@
 - Evaluate system 
 - Set new dealines for upcoming tasks i.e. Raspberry Pi, CV, presentable system 
 - Psychologically grounded features like emotions, empathy and games 
+
+# 16 October
+ 
+## Results
+- Integrated 3 components of dialogue system: Rasa, STT, TTS
+- Found that the following metrics are most commonly used in evaluations/ as cost indicators:
+  - Speed (latency, wall time, etc)  
+  - FLOPs
+  - Number of parameters
+
+## What Went Well
+- Developed a somewhat presentable system by integrating dialogue system components
+- Strategised how to deal with the lack of data we have 
+
+## What Didn't Go Well
+- Underestimated how long tasks would take 
+
+## Going Forward into Sprint 4
+- Determine how to bring the user the utmost value
+  - Determine whether the user values the toy's capabilites or a seamless system
+- Vocoder: better user experience driven by a more enthusiastic/realistic bot voice
+  - what would be ideal for the user? (Human/ robotic)
+- Improved memory game: try to improve Rasa's ability to generalise (maybe adding more trainig data). Also make it function as a game (i.e. winner/ loser). 
+- Develop a user interface that gives feedback to the user (lets them know that the bot is listening)
+- Play around with setting up the Pi
+- Debug speech to text
+- Refine target audience/ age

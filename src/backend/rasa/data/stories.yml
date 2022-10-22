@@ -39,9 +39,58 @@ stories:
       - intent: deny
       - action: action_create_memory_game_file
 
-  - story: stop memory game, no rematch
+  - story: stop memory game, rematch
     steps:
       - intent: had_enough
       - action: utter_game_over
       - intent: affirm
       - action: action_create_memory_game_file
+
+  - story: math_game_count happy path 1
+    steps:
+      - intent: play_math_game_count
+      - action: utter_start_math_game_count
+      - action: action_create_math_game_file # Remove existing file and create new file
+      - intent: math_game_count
+      - action: action_math_game_count
+      - intent: math_game_count
+      - action: action_math_game_count
+      - intent: math_game_count
+      - action: action_math_game_count
+
+  - story: math_game_count unhappy path 1
+    steps:
+      - intent: play_math_game_count
+      - action: utter_start_math_game_count
+      - action: action_create_math_game_file # Remove existing file and create new file
+      - intent: math_game_count
+      - action: action_math_game_count
+      - intent: greet
+      - action: utter_greet
+
+  - story: happy path
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: mood_great
+      - action: utter_happy
+
+  - story: sad path 1
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: mood_unhappy
+      - action: utter_cheer_up
+      - action: utter_did_that_help
+      - intent: affirm
+      - action: utter_happy
+
+  - story: sad path 2
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: mood_unhappy
+      - action: utter_cheer_up
+      - action: utter_did_that_help
+      - intent: deny
+      - action: utter_goodbye
