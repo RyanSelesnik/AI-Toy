@@ -10,43 +10,73 @@ intents:
   - bot_challenge
   - math_game_count
   - play_math_game_count
+  - choose_memory_game
+  - inform
+  - had_enough
 
 actions:
   - action_math_game_count
   - action_create_math_game_file
+  - action_play_memory_game
+  - action_create_memory_game_file
+
 entities:
   - math_game_number
+  - items
 
 slots:
   math_game_number:
     type: list
     mappings:
-    - type: from_entity
-      entity: math_game_number
-
+      - type: from_entity
+        entity: math_game_number
+  items:
+    type: list
+    mappings:
+      - type: from_entity
+        entity: items
 
 responses:
   utter_greet:
-  - text: "Hey! How are you?"
+    - text: "Hey! How are you?"
+    - text: "Hey!"
+    - text: "Hiya!"
+    - text: "Hey there!"
 
   utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
+    - text: "Here is something to cheer you up:"
+      image: "https://i.imgur.com/nGF1K8f.jpg"
 
   utter_did_that_help:
-  - text: "Did that help you?"
+    - text: "Did that help you?"
 
   utter_happy:
-  - text: "Great, carry on!"
+    - text: "Great, carry on!"
 
   utter_goodbye:
-  - text: "Bye"
+    - text: "Bye"
+    - text: "Bye!"
+    - text: "Bye then!"
+    - text: "Bye bye!"
+    - text: "Have a great day!"
 
   utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
+    - text: "I am a bot, powered by Rasa."
+    - text: "I am a bot, powered by Rasa."
+    - text: "I am a toy"
 
   utter_start_math_game_count:
     - text: "Great, why don't you show me how far you can count, starting from one?"
+
+  utter_go_ahead:
+    - text: "Great, go ahead!"
+    - text: "Awesome, you start!"
+    - text: "I'm in! Why don't you go first?"
+
+  utter_game_over:
+    - text: Ahh, I'm sad to see you go. But you did a great job! Do you want to play again?
+    - text: Sure, well done for a great game. Another round?
+    - text: That was fun! You have a great memory. Keep playing to improve it even further. Should we have a rematch?
 
 session_config:
   session_expiration_time: 60
