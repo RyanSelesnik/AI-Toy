@@ -11,7 +11,40 @@ stories:
   - intent: choose_memory_game
   - action: utter_go_ahead
 
+- story: play memory game until loss
+  steps: 
+  - intent: inform
+  - action: action_create_memory_game_file
+  - action: action_play_memory_game
+  - intent: inform
+  - action: action_play_memory_game
+  - intent: inform
+  - action: action_play_memory_game
+  - action: action_create_memory_game_file
+
 - story: play memory game
   steps: 
   - intent: inform
+  - action: action_create_memory_game_file
   - action: action_play_memory_game
+  - intent: inform
+  - action: action_play_memory_game
+  - intent: inform
+  - action: action_play_memory_game
+
+- story: stop memory game, no rematch
+  steps:
+  - intent: had_enough
+  - action: utter_game_over
+  - intent: deny
+  - action: action_create_memory_game_file
+
+- story: stop memory game, no rematch
+  steps:
+  - intent: had_enough
+  - action: utter_game_over
+  - intent: affirm
+  - action: action_create_memory_game_file
+
+
+

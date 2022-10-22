@@ -7,6 +7,7 @@ intents:
   - greet
   - choose_memory_game
   - inform
+  - had_enough
   - goodbye
   - affirm
   - deny
@@ -43,5 +44,11 @@ responses:
   - text: "Awesome, you start!"
   - text: "I'm in! Why don't you go first?"
 
+  utter_game_over:
+  - text: Ahh, I'm sad to see you go. But you did a great job! Do you want to play again?
+  - text: Sure, well done for a great game. Another round?
+  - text: That was fun! You have a great memory. Keep playing to improve it even further. Should we have a rematch?
+
 actions:
   - action_play_memory_game
+  - action_create_memory_game_file

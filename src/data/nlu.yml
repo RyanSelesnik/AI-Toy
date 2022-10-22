@@ -1,9 +1,6 @@
 version: "3.1"
 
 nlu: 
-# - lookup: items
-#   files: |
-#     - data/memory_game/items.yml
 
 - intent: inform
   examples: |
@@ -45,6 +42,15 @@ nlu:
     - I want to play the memory game
     - Can we play the memory game?
     - Memory game please!
+
+- intent: had_enough
+  examples: |
+    - I'm bored
+    - I am bored
+    - Can we stop now?
+    - I've had enough
+    - I dont want to play anymore
+    - Let's carry on another time 
 
 - intent: goodbye
   examples: |

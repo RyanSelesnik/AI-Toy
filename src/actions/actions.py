@@ -4,7 +4,6 @@
 # See this guide on how to implement these action:
 # https://rasa.com/docs/rasa/custom-actions
 
-
 # This is a simple example for a custom action which utters "Hello World!"
 
 from typing import Any, Text, Dict, List
@@ -12,9 +11,25 @@ from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from random import seed
+import os
 # import random
 import copy
 import memory_game_utils
+from memory_game_utils import PATH_TO_PREV_BOT_TURN 
+class CreateMemoryGameFile(Action):
+
+    def name(self) -> Text:
+        return "action_create_memory_game_file"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        try:
+            os.system(f"rm {PATH_TO_PREV_BOT_TURN}")
+        except FileNotFoundError as e:
+            print(e)
+        os.system(f"touch {PATH_TO_PREV_BOT_TURN}")
+        
 class ActionPlayMemoryGame(Action):
    
     def name(self) -> Text:
@@ -25,18 +40,14 @@ class ActionPlayMemoryGame(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
  
         # play memory game
-        prev_bot_turn = memory_game_utils.emptyTempFile()
         user_turn = tracker.get_slot("items")
-        num_rounds=0
+        prev_bot_turn = memory_game_utils.readInTempFile()
 
-        if memory_game_utils.isValid(prev_bot_turn, user_turn):
+        if memory_game_utils.isValid(prev_bot_turn, user_turn, dispatcher):
             new_bot_turn = memory_game_utils.proceedValidTurn(user_turn)
-            num_rounds+=1
             dispatcher.utter_message(text=f"I went to the market and I bought {new_bot_turn}")
             return []
         else:
-            dispatcher.utter_message(text=f"Well done! You made it to {num_rounds} rounds this time! Keep playing to improve your skills.")
-            open('./data/past_events.txt', 'w').close()
+            dispatcher.utter_message(text=f"You made it to {len(prev_bot_turn)-1} rounds this time!")
+            open(PATH_TO_PREV_BOT_TURN, 'w').close()
             return []
-
-
