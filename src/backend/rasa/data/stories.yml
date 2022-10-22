@@ -1,30 +1,51 @@
 version: "3.1"
 
 stories:
+  - story: math_game_count happy path 1
+    steps:
+      - intent: play_math_game_count
+      - action: utter_start_math_game_count
+      - action: action_create_math_game_file # Remove existing file and create new file
+      - intent: math_game_count
+      - action: action_math_game_count
+      - intent: math_game_count
+      - action: action_math_game_count
+      - intent: math_game_count
+      - action: action_math_game_count
 
-- story: happy path
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_great
-  - action: utter_happy
+  - story: math_game_count unhappy path 1
+    steps:
+      - intent: play_math_game_count
+      - action: utter_start_math_game_count
+      - action: action_create_math_game_file # Remove existing file and create new file
+      - intent: math_game_count
+      - action: action_math_game_count
+      - intent: greet
+      - action: utter_greet
 
-- story: sad path 1
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: affirm
-  - action: utter_happy
+  - story: happy path
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: mood_great
+      - action: utter_happy
 
-- story: sad path 2
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: deny
-  - action: utter_goodbye
+  - story: sad path 1
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: mood_unhappy
+      - action: utter_cheer_up
+      - action: utter_did_that_help
+      - intent: affirm
+      - action: utter_happy
+
+  - story: sad path 2
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: mood_unhappy
+      - action: utter_cheer_up
+      - action: utter_did_that_help
+      - intent: deny
+      - action: utter_goodbye

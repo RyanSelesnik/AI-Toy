@@ -74,8 +74,9 @@ class SpokenDialogueSystem():
         Interact with the spoken dialogue system by speaking into the mic and waiting for a response
         until the user utters a stop word
         """
-        print("Speak...")
+
         with sr.Microphone(sample_rate=16000) as source:
+            print("Speak...")
             while True:
 
                 audio_clip = self.record_audio_stream(source)
@@ -88,10 +89,12 @@ class SpokenDialogueSystem():
                 # If the predicted text is not empty, get a response from the backend
                 if predicted_text != '':
                     responses = self.get_bot_response(predicted_text)
+                    print(f'responses: {responses}')
                     for response in responses:
                         self.text_to_speech(response)
+
                     print(f'input: {predicted_text}')
-                    print(f'bot response: {response}')
+                    # print(f'bot response: {response}')
 
                 if self.check_stop_word(predicted_text):
                     break
@@ -111,18 +114,22 @@ class SpokenDialogueSystem():
 
     def get_bot_response(self, transcribed_text):
         """Fetch the bot's response"""
+
         url = 'http://0.0.0.0:5005/webhooks/rest/webhook'
+
         payload = {
             "sender": "test_user",
             "message": transcribed_text
         }
+
         responses = requests.post(url, json=payload).json()
         full_response = []
         # Loop through all bot responses
         for response in responses:
             # If its a textual response
             if 'text' in response:
-                full_response.append(f"{response['text']}")
+                text = str(response['text']).replace("'", "")
+                full_response.append(text)
 
         return full_response
 
@@ -135,4 +142,5 @@ class SpokenDialogueSystem():
 if __name__ == "__main__":
     sds = SpokenDialogueSystem()
     sds.interact()
+    # sds.get_bot_response("play math game")
     # sds.text_to_speech("hello there")
