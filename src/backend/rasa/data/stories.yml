@@ -1,50 +1,74 @@
 version: "3.1"
 
 stories:
-- story: greeting
-  steps: 
-  - intent: greet
-  - action: utter_greet
+  - story: greeting
+    steps:
+      - intent: greet
+      - action: utter_greet
 
-- story: choose game
-  steps: 
-  - intent: choose_memory_game
-  - action: utter_go_ahead
+  - story: choose game
+    steps:
+      - intent: choose_memory_game
+      - action: utter_go_ahead
 
-- story: play memory game until loss
-  steps: 
-  - intent: inform
-  - action: action_create_memory_game_file
-  - action: action_play_memory_game
-  - intent: inform
-  - action: action_play_memory_game
-  - intent: inform
-  - action: action_play_memory_game
-  - action: action_create_memory_game_file
+  - story: play memory game until loss
+    steps:
+      - intent: inform
+      - action: action_create_memory_game_file
+      - action: action_play_memory_game
+      - intent: inform
+      - action: action_play_memory_game
+      - intent: inform
+      - action: action_play_memory_game
+      - action: action_create_memory_game_file
 
-- story: play memory game
-  steps: 
-  - intent: inform
-  - action: action_create_memory_game_file
-  - action: action_play_memory_game
-  - intent: inform
-  - action: action_play_memory_game
-  - intent: inform
-  - action: action_play_memory_game
+  - story: play memory game
+    steps:
+      - intent: inform
+      - action: action_create_memory_game_file
+      - action: action_play_memory_game
+      - intent: inform
+      - action: action_play_memory_game
+      - intent: inform
+      - action: action_play_memory_game
 
-- story: stop memory game, no rematch
-  steps:
-  - intent: had_enough
-  - action: utter_game_over
-  - intent: deny
-  - action: action_create_memory_game_file
+  - story: stop memory game, no rematch
+    steps:
+      - intent: had_enough
+      - action: utter_game_over
+      - intent: deny
+      - action: action_create_memory_game_file
 
-- story: stop memory game, no rematch
-  steps:
-  - intent: had_enough
-  - action: utter_game_over
-  - intent: affirm
-  - action: action_create_memory_game_file
+  - story: stop memory game, no rematch
+    steps:
+      - intent: had_enough
+      - action: utter_game_over
+      - intent: affirm
+      - action: action_create_memory_game_file
 
+  - story: happy path
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: mood_great
+      - action: utter_happy
 
+  - story: sad path 1
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: mood_unhappy
+      - action: utter_cheer_up
+      - action: utter_did_that_help
+      - intent: affirm
+      - action: utter_happy
 
+  - story: sad path 2
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: mood_unhappy
+      - action: utter_cheer_up
+      - action: utter_did_that_help
+      - intent: deny
+      - action: utter_goodbye

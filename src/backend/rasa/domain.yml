@@ -19,35 +19,35 @@ entities:
 slots:
   items:
     type: list
-    mappings: 
-    - type: from_entity
-      entity: items
+    mappings:
+      - type: from_entity
+        entity: items
 
 responses:
   utter_greet:
-  - text: "Hey!"
-  - text: "Hiya!"
-  - text: "Hey there!"
+    - text: "Hey!"
+    - text: "Hiya!"
+    - text: "Hey there!"
 
   utter_goodbye:
-  - text: "Bye!"
-  - text: "Bye then!"
-  - text: "Bye bye!"
-  - text: "Have a great day!"
+    - text: "Bye!"
+    - text: "Bye then!"
+    - text: "Bye bye!"
+    - text: "Have a great day!"
 
   utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
-  - text: "I am a toy"
+    - text: "I am a bot, powered by Rasa."
+    - text: "I am a toy"
 
   utter_go_ahead:
-  - text: "Great, go ahead!"
-  - text: "Awesome, you start!"
-  - text: "I'm in! Why don't you go first?"
+    - text: "Great, go ahead!"
+    - text: "Awesome, you start!"
+    - text: "I'm in! Why don't you go first?"
 
   utter_game_over:
-  - text: Ahh, I'm sad to see you go. But you did a great job! Do you want to play again?
-  - text: Sure, well done for a great game. Another round?
-  - text: That was fun! You have a great memory. Keep playing to improve it even further. Should we have a rematch?
+    - text: Ahh, I'm sad to see you go. But you did a great job! Do you want to play again?
+    - text: Sure, well done for a great game. Another round?
+    - text: That was fun! You have a great memory. Keep playing to improve it even further. Should we have a rematch?
 
 actions:
   - action_play_memory_game

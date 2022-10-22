@@ -1,8 +1,12 @@
 .env
 env
+STTvenv
 *.arpa
 kenlm
 *.bin
+*.python
+*.pth
+*.wav
 .vscode
 __pycache__
 # VSCode
@@ -279,4 +283,5 @@ rasa/keys
 .netlify
 *.code-workspace
 Footer
+synethesized_audio
 

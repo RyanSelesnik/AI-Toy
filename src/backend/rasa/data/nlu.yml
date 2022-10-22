@@ -1,99 +1,128 @@
 version: "3.1"
 
-nlu: 
+nlu:
+  - intent: inform
+    examples: |
+      - I went to the market and I bought [milk](items), [cookies](items), and [chocolate](items)
+      - I went and bought [milk](items), [cookies](items), and [chocolate](items)
+      - I went and bought [bread](items)
+      - I went and bought [food](items), a [barbie](items)
+      - I went to the market and bought [clothes](items), [furniture](items), [sauce](items), [kitchen](items)
+      - I went to the market and I bought [paper](items)
+      - I went to the market and I bought a [cupboard](items)
+      - I bought [fruit](items), [vegetables](items), a [pie](items), and [pants](items)
+      - I went to the market and I bought a [dress](items), a [skirt](items), [pancakes](items), and an [oven](items)
+      - I went to the shops to buy [tomato sauce](items)
+      - I went to the market to buy a [dog](items)
+      - I went to the market and bought [technology](items), [clothes](items), [food](items), [drinks](items), [fruit](items), [vegetables](items), [appliances](items), [toys](items), [animals](items), [stationery](items)
 
-- intent: inform
-  examples: |
-    - I went to the market and I bought [milk](items), [cookies](items), and [chocolate](items)
-    - I went and bought [milk](items), [cookies](items), and [chocolate](items)
-    - I went and bought [bread](items)
-    - I went and bought [food](items), a [barbie](items)
-    - I went to the market and bought [clothes](items), [furniture](items), [sauce](items), [kitchen](items)
-    - I went to the market and I bought [paper](items)
-    - I went to the market and I bought a [cupboard](items)
-    - I bought [fruit](items), [vegetables](items), a [pie](items), and [pants](items)
-    - I went to the market and I bought a [dress](items), a [skirt](items), [pancakes](items), and an [oven](items)
-    - I went to the shops to buy [tomato sauce](items)
-    - I went to the market to buy a [dog](items)
-    - I went to the market and bought [technology](items), [clothes](items), [food](items), [drinks](items), [fruit](items), [vegetables](items), [appliances](items), [toys](items), [animals](items), [stationery](items)
+  - intent: greet
+    examples: |
+      - hey
+      - hello
+      - hi
+      - hello there
+      - good morning
+      - good evening
+      - moin
+      - hey there
+      - let's go
+      - hey dude
+      - goodmorning
+      - goodevening
+      - good
 
-- intent: greet
-  examples: |
-    - hey
-    - hello
-    - hi
-    - hiya
-    - heya
-    - morning 
-    - hello there
-    - good morning
-    - good evening
-    - moin
-    - hey there
-    - let's go
-    - hey dude
-    - goodmorning
-    - goodevening
-    - good 
-  
-- intent: choose_memory_game
-  examples: | 
-    - I'd like to play the memory game 
-    - I want to play the memory game
-    - Can we play the memory game?
-    - Memory game please!
+  - intent: choose_memory_game
+    examples: |
+      - I'd like to play the memory game 
+      - I want to play the memory game
+      - Can we play the memory game?
+      - Memory game please!
 
-- intent: had_enough
-  examples: |
-    - I'm bored
-    - I am bored
-    - Can we stop now?
-    - I've had enough
-    - I dont want to play anymore
-    - Let's carry on another time 
+  - intent: had_enough
+    examples: |
+      - I'm bored
+      - I am bored
+      - Can we stop now?
+      - I've had enough
+      - I dont want to play anymore
+      - Let's carry on another time
 
-- intent: goodbye
-  examples: |
-    - cu
-    - good by
-    - cee you later
-    - good night
-    - bye
-    - goodbye
-    - have a nice day
-    - see you around
-    - bye bye
-    - see you later
+  - intent: goodbye
+    examples: |
+      - cu
+      - good by
+      - cee you later
+      - good night
+      - bye
+      - goodbye
+      - have a nice day
+      - see you around
+      - bye bye
+      - see you later
 
-- intent: affirm
-  examples: |
-    - yes
-    - y
-    - ya
-    - ye
-    - yip
-    - indeed
-    - of course
-    - that sounds good
-    - correct
+  - intent: affirm
+    examples: |
+      - yes
+      - y
+      - ya
+      - ye
+      - yip
+      - indeed
+      - of course
+      - that sounds good
+      - correct
 
-- intent: deny
-  examples: |
-    - no
-    - n
-    - never
-    - I don't think so
-    - don't like that
-    - no way
-    - not really
+  - intent: deny
+    examples: |
+      - no
+      - n
+      - never
+      - I don't think so
+      - don't like that
+      - no way
+      - not really
 
-- intent: bot_challenge
-  examples: |
-    - are you a bot?
-    - are you a human?
-    - am I talking to a bot?
-    - am I talking to a human?
-    - are you a toy?
-    - are you a toy or a human?
-    - are you a robot?
+  - intent: mood_great
+    examples: |
+      - perfect
+      - great
+      - amazing
+      - feeling like a king
+      - wonderful
+      - I am feeling very good
+      - I am great
+      - I am amazing
+      - I am going to save the world
+      - super stoked
+      - extremely good
+      - so so perfect
+      - so good
+      - so perfect
 
+  - intent: mood_unhappy
+    examples: |
+      - my day was horrible
+      - I am sad
+      - I don't feel very well
+      - I am disappointed
+      - super sad
+      - I'm so sad
+      - sad
+      - very sad
+      - unhappy
+      - not good
+      - not very good
+      - extremly sad
+      - so saad
+      - so sad
+
+  - intent: bot_challenge
+    examples: |
+      - are you a bot?
+      - are you a human?
+      - am I talking to a bot?
+      - am I talking to a human?
+      - are you a toy?
+      - are you a toy or a human?
+      - are you a robot?
