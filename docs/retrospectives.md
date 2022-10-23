@@ -76,3 +76,30 @@
 - Play around with setting up the Pi
 - Debug speech to text
 - Refine target audience/ age
+
+# 23 October
+
+## Results
+- Refined the target audience (kids of age 3-6 or before grade 1)
+- Improved both the memory game and math game
+- Integrated games onto master
+
+## What Went Well
+- Successful meeting with Dr. Genga (supervisor) who liked our strategy for dealing with the lack of data
+- Improved the games to the point of being presentable
+- Clearer idea of research question and steps needed to answer it
+
+## What Didn't Go Well
+- Didn't manage to to touch all layer of the system
+- Still haven't been able to start collecting results
+
+## Going Forward into Sprint 5
+- Try to balance developing "final product" for Open Day with "investigation" for report (getting results)
+- Developing a final product involves:
+  - Deploying to Raspberry Pi
+  - Add more training data and stories
+  - Open Day poster and video presentation
+- Completing the investigation involves:
+  - Obtaining results to reconcile observations with predictions
+  - Results include: accuracy, latency, RTF (real time factor), and other qualitative and quantitative system characteristics
+
