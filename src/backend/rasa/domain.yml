@@ -24,6 +24,11 @@ entities:
   - math_game_number
   - items
 
+forms:
+  name_form:
+    required_slots:
+      - name
+
 slots:
   math_game_number:
     type: list
@@ -35,6 +40,14 @@ slots:
     mappings:
       - type: from_entity
         entity: items
+  name:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+         - active_loop: name_form
+           requested_slot: first_name
 
 responses:
   utter_greet:
@@ -42,6 +55,16 @@ responses:
     - text: "Hey!"
     - text: "Hiya!"
     - text: "Hey there!"
+
+  utter_ask_name:
+    - text: "What is your name?"
+    - text: "I'd love to know your name!"
+    - text: "Please tell me your name?"
+
+  utter_greet_with_name:
+    - text: "I'm so happy to meet you, {name}"
+    - text: "Pleased to meet you, {name}"
+    - text: "Hey there, {name}"
 
   utter_cheer_up:
     - text: "Here is something to cheer you up:"

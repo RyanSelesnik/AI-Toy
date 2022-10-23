@@ -5,6 +5,28 @@ stories:
     steps:
       - intent: greet
       - action: utter_greet
+    
+  - story: introduce
+    steps:
+    - intent: greet
+    - action: utter_greet
+    - action: utter_ask_name
+    - intent: introduce_myself
+    - action: utter_greet_with_name
+
+  - story: onboarding with memory game
+    steps: 
+    - intent: utter_ask_what_possible
+    - action: utter_what_possible
+    - intent: utter_ask_memory_game
+    - action: utter_explain_memory_game
+  
+  - story: onboarding with math game
+    steps: 
+    - intent: utter_ask_what_possible
+    - action: utter_what_possible
+    - intent: utter_ask_math_game
+    - action: utter_explain_math_game
 
   - story: choose game
     steps:

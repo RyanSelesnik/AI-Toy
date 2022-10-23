@@ -1,0 +1,38 @@
+version: "3.1"
+
+nlu:
+  - intent: ask_what_possible
+    examples: |
+      - What can we do?
+      - What can I do?
+      - What can you teach me?
+      - Do you have games?
+      - What games can I play?
+
+  - intent: ask_about_memory_game
+    examples: |
+      - How do I play the memory game?
+      - Please teach me the memory game?
+      - Can you please teach me the memory game?
+      - How does the memory game work?
+      - Please explain the memory game
+      - Can you explain the memory game please?
+      - Teach me the memory game
+      - I want to learn the memory game
+      - How do I play I went to the market?
+      - How does I went to the market work?
+      - The memory game
+      - Memory game
+  
+  - intent: ask_about_math_game
+      - How do I play the maths game?
+      - Please teach me the math game?
+      - Can you please teach me the maths game?
+      - How does the maths game work?
+      - Please explain the math game
+      - Can you explain the maths game please?
+      - Teach me the math game
+      - I want to learn the math game
+      - The maths game
+      - Maths game
+  

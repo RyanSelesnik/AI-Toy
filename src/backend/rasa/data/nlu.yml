@@ -31,6 +31,12 @@ nlu:
       - goodmorning
       - goodevening
       - good
+  
+  - intent: introduce_myself
+    examples: |
+      - I'm {name}
+      - My name is {name}
+      - I'm called {name}
 
   - intent: choose_memory_game
     examples: |
