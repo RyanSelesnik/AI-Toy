@@ -1,5 +1,5 @@
 
-from memory_game_utils import PATH_TO_PREV_BOT_TURN, isValid, computer_turn, proceedValidTurn, readInTempFile
+from memory_game_utils import PATH_TO_PREV_BOT_TURN, is_valid, get_computer_turn, proceed_with_valid_turn, read_temp_file
 import copy
 from random import seed
 from urllib import response
@@ -10,13 +10,6 @@ import os
 from math_game_utils import map_entities_to_ints, list_is_valid, reset_game
 
 PATH_TO_FILE = './latest_number.txt'
-
-# This is a simple example for a custom action which utters "Hello World!"
-
-
-# import random
-# import memory_game_utils
-
 
 class CreateMemoryGameFile(Action):
 
@@ -32,7 +25,6 @@ class CreateMemoryGameFile(Action):
             print(e)
         os.system(f"touch {PATH_TO_PREV_BOT_TURN}")
 
-
 class ActionPlayMemoryGame(Action):
 
     def name(self) -> Text:
@@ -44,10 +36,10 @@ class ActionPlayMemoryGame(Action):
 
         # play memory game
         user_turn = tracker.get_slot("items")
-        prev_bot_turn = readInTempFile()
+        prev_bot_turn = read_temp_file()
 
-        if isValid(prev_bot_turn, user_turn, dispatcher):
-            new_bot_turn = proceedValidTurn(user_turn)
+        if is_valid(prev_bot_turn, user_turn, dispatcher):
+            new_bot_turn = proceed_with_valid_turn(user_turn)
             dispatcher.utter_message(
                 text=f"I went to the market and I bought {new_bot_turn}")
             return []
