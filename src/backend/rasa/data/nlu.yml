@@ -34,9 +34,11 @@ nlu:
   
   - intent: utter_introduction
     examples: |
-      - I'm {name}
-      - My name is {name}
-      - I'm called {name}
+      - I'm rachel
+      - My name is ryan
+      - I'm called rachel
+      - My name is rachel
+      - I'm called ryan
 
   - intent: choose_memory_game
     examples: |

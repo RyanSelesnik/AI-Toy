@@ -12,18 +12,18 @@ rules:
   - intent: bot_challenge
   - action: utter_iamabot
 
-- rule: Activate name form
-  steps:
-  - intent: utter_introduction
-  - action: name_form
-  - active_loop: name_form
+# - rule: Activate name form
+#   steps:
+#   - intent: utter_introduction
+#   - action: name_form
+#   - active_loop: name_form
 
-- rule: Submit name form
-  condition:
-  - active_loop: name_form
-  steps:
-  - action: name_form
-  - active_loop: null
-  - slot_was_set:
-    - requested_slot: null
-  - action: utter_make_introduction
+# - rule: Submit name form
+#   condition:
+#   - active_loop: name_form
+#   steps:
+#   - action: name_form
+#   - active_loop: null
+#   - slot_was_set:
+#     - requested_slot: null
+#   - action: utter_make_introduction

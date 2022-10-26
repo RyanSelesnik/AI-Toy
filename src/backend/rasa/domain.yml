@@ -27,7 +27,6 @@ actions:
 entities:
   - math_game_number
   - items
-  - name
 
 slots:
   math_game_number:
@@ -40,20 +39,7 @@ slots:
     mappings:
       - type: from_entity
         entity: items
-  name:
-    type: text
-    influence_conversation: true
-    mappings:
-      - type: from_entity
-        entity: name
-        conditions:
-          - active_loop: name_form
-
-forms:
-  name_form:
-    required_slots:
-    - name
-
+        
 responses:
 
   utter_cheer_up:
@@ -115,9 +101,9 @@ responses:
     - text: "Hi! Please tell me you name?"
 
   utter_make_introduction:
-    - text: "I'm so happy to meet you, {name}! I'm DlalaBot."
-    - text: "Pleased to meet you, {name}! I am called DlalaBot."
-    - text: "Hey there, {name}! My name is DlalaBot."
+    - text: "I love that name, glad to meet you! I'm DlalaBot."
+    - text: "Pleased to meet you! I am called DlalaBot."
+    - text: "Cool name! My name is DlalaBot."
 
 
 session_config:

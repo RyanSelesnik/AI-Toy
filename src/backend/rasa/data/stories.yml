@@ -7,15 +7,6 @@ stories:
       - intent: greet
       - action: utter_greet
       - intent: utter_introduction
-      - action: name_form
-      - active_loop: name_form
-      - slot_was_set:
-        - requested_slot: name
-      - slot_was_set:
-        - name: Rachel
-      - slot_was_set:
-        - requested_slot: null
-      - active_loop: null
       - action: utter_make_introduction
 
   - story: onboarding with memory game
