@@ -1,10 +1,37 @@
 version: "3.1"
 
 stories:
-  - story: greeting
+    
+  - story: introduce
     steps:
       - intent: greet
       - action: utter_greet
+      - intent: utter_introduction
+      - action: utter_make_introduction
+
+  - story: onboarding with memory game
+    steps: 
+      - intent: ask_what_possible
+      - action: utter_what_possible
+      - intent: ask_about_memory_game
+      - action: utter_explain_memory_game
+  
+  - story: onboarding with math game
+    steps: 
+      - intent: ask_what_possible
+      - action: utter_what_possible
+      - intent: ask_about_math_game
+      - action: utter_explain_math_game
+  
+  - story: onboarding with math game path 2
+    steps:
+    - intent: ask_about_math_game
+    - action: utter_explain_math_game
+  
+  - story: onbarding with memory game path 2
+    steps:
+    - intent: ask_about_memory_game
+    - action: utter_explain_memory_game
 
   - story: choose game
     steps:

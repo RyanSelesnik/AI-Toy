@@ -4,12 +4,12 @@ import copy
 from rasa_sdk.executor import CollectingDispatcher
 PATH_TO_PREV_BOT_TURN = './past_events.txt'
 
-def readInTempFile():
+def read_temp_file():
     with open(PATH_TO_PREV_BOT_TURN, 'r') as f:
         prev_bot_turn = [line.rstrip('\n') for line in f]
     return prev_bot_turn
         
-def computer_turn(user_turn):
+def get_computer_turn(user_turn):
     with open('./items.txt', "r") as f:
         list_of_objects = f.read().splitlines()
         for item in list_of_objects:
@@ -18,7 +18,7 @@ def computer_turn(user_turn):
     computer_turn=list_of_objects[random.randint(0,len(list_of_objects))-1]
     return computer_turn
 
-def isValid(prev_bot_turn, curr_user_turn, dispatcher: CollectingDispatcher):
+def is_valid(prev_bot_turn, curr_user_turn, dispatcher: CollectingDispatcher):
     if (len(prev_bot_turn) == 0):
         #user's first move is always valid
         return True
@@ -38,9 +38,9 @@ def isValid(prev_bot_turn, curr_user_turn, dispatcher: CollectingDispatcher):
         #if the game has not just begun, but bot's previous turn matches user's current turn, user is still in play
         return True
 
-def proceedValidTurn(user_turn):
+def proceed_with_valid_turn(user_turn):
     open(PATH_TO_PREV_BOT_TURN, 'w').close()
-    bot_addition = computer_turn(user_turn)
+    bot_addition = get_computer_turn(user_turn)
     new_bot_turn = user_turn.copy()
     new_bot_turn.append(bot_addition)
     with open(PATH_TO_PREV_BOT_TURN, 'w') as f:
