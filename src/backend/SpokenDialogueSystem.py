@@ -7,12 +7,12 @@ import whisper
 import tempfile
 import os
 import requests
-from playsound import playsound
+#from playsound import playsound
 
 
 parser = argparse.ArgumentParser(
     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-parser.add_argument("--model", default="base", help="Model to use",
+parser.add_argument("--model", default="tiny", help="Model to use",
                     choices=["tiny", "base", "small", "medium", "large"])
 parser.add_argument("--english", default=True,
                     help="Whether to use English model", type=bool)
