@@ -11,6 +11,7 @@ from math_game_utils import map_entities_to_ints, list_is_valid, reset_game
 
 PATH_TO_FILE = './latest_number.txt'
 
+
 class CreateMemoryGameFile(Action):
 
     def name(self) -> Text:
@@ -24,6 +25,7 @@ class CreateMemoryGameFile(Action):
         except FileNotFoundError as e:
             print(e)
         os.system(f"touch {PATH_TO_PREV_BOT_TURN}")
+
 
 class ActionPlayMemoryGame(Action):
 
@@ -66,12 +68,16 @@ class MathGameCount(Action):
         entities = tracker.get_slot("math_game_number")
 
         list_of_ints = map_entities_to_ints(entities)
-
+        last_num = list_of_ints[-1]
         # A list is valid depneds on the current list and past list (stored in PATH_TO_FILE)
         if list_is_valid(list_of_ints, PATH_TO_FILE):
-            dispatcher.utter_message(text="Woah, Nice! Carry on")
+
+            dispatcher.utter_message(
+                text=f"Wow, you got to {last_num}, can you keep going?")
         else:
-            dispatcher.utter_message(text="You lose")
+            last_last_num = list_of_ints[-2]
+            dispatcher.utter_message(
+                text=f"Oops you lost, but you did great you managed to count all the way to {last_last_num} ")
             reset_game(PATH_TO_FILE)
 
         return []
