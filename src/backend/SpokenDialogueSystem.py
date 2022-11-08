@@ -75,7 +75,7 @@ class SpokenDialogueSystem():
         until the user utters a stop word
         """
 
-        with sr.Microphone(sample_rate=16000) as source:
+        with sr.Microphone(device_index=1, sample_rate=16000) as source:
             print("Speak...")
             while True:
 
@@ -85,32 +85,37 @@ class SpokenDialogueSystem():
 
                 # Covert recorded audio to text
                 predicted_text = self.transcribe()
+                if predicted_text != '':
+                    print('\nDone transcribing:')
+                    print(f'\n\nYou said:\t{predicted_text}\n\n')
+                    print("synethesisng speech...")
+                    self.text_to_speech(predicted_text)
+                        
 
                 # If the predicted text is not empty, get a response from the backend
-                if predicted_text != '':
-                    responses = self.get_bot_response(predicted_text)
-                    print(f'responses: {responses}')
-                    for response in responses:
-                        self.text_to_speech(response)
+                #if predicted_text != '':
+                    #responses = self.get_bot_response(predicted_text)
+                    #print(f'responses: {responses}')
+                    #for response in responses:
+                    #    self.text_to_speech(response)
 
-                    print(f'input: {predicted_text}')
                     # print(f'bot response: {response}')
 
                 if self.check_stop_word(predicted_text):
                     break
 
     def text_to_speech(self, text):
-        # TODO: handle the case where request fails. I.e. add a spoken response to inform user that server ius donw
-        os.system(f"say -v Karen {text}")
-        # url = 'http://127.0.0.1:5000'
-        # payload = {
-        #     "message": text
-        # }
-        # response = requests.post(url, json=payload)
-        # data = io.BytesIO(response.content)
-        # audio = AudioSegment.from_file(data)
-        # audio.export('./wav/test.wav', format="wav")
-        # playsound('./wav/test.wav')
+        text = f'You said {text}'
+        url = 'http://0.0.0.0:59125/api/tts?voice=en_US/ljspeech_low'
+        try:
+            res = requests.post(url, data=text)
+        except Exception as e:
+            pass
+        else:
+            data = io.BytesIO(res.content)
+            audio = AudioSegment.from_file(data)
+            audio.export('./test.wav', format="wav")
+            os.system('aplay test.wav')
 
     def get_bot_response(self, transcribed_text):
         """Fetch the bot's response"""
