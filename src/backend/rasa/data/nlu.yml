@@ -1,20 +1,73 @@
-version: "3.1"
+version: "3.0"
 
 nlu:
   - intent: inform
     examples: |
-      - I went to the market and I bought [milk](items), [cookies](items), and [chocolate](items)
-      - I went and bought [milk](items), [cookies](items), and [chocolate](items)
-      - I went and bought [bread](items)
-      - I went and bought [food](items), a [barbie](items)
-      - I went to the market and bought [clothes](items), [furniture](items), [sauce](items), [kitchen](items)
-      - I went to the market and I bought [paper](items)
       - I went to the market and I bought a [cupboard](items)
-      - I bought [fruit](items), [vegetables](items), a [pie](items), and [pants](items)
-      - I went to the market and I bought a [dress](items), a [skirt](items), [pancakes](items), and an [oven](items)
-      - I went to the shops to buy [tomato sauce](items)
-      - I went to the market to buy a [dog](items)
-      - I went to the market and bought [technology](items), [clothes](items), [food](items), [drinks](items), [fruit](items), [vegetables](items), [appliances](items), [toys](items), [animals](items), [stationery](items)
+      - I went to the market and I bought a [pillow](items), and a [blanket](items)
+      - I went to the market and I bought a [bed](items), a [sofa](items), and a [couch](items)
+      - I went to the market and I bought a [coffee maker](items), a [spoon](items), and a [stove](items)
+      - I went to the market and I bought a [oven](items), a [sink](items), a [washing machine](items)
+      - I went to the market and I bought a [pot](items), a [dish](items), and a [fridge](items)
+      - I went to the market and I bought a [stool](items), a [cup](items), a [fork](items)
+      - I went to the market and I bought a [glass](items), a [lamp](items), and a [table](items)
+      - I went and ahh bought a [television](items), a [teapot](items), and a [remote control](items)
+      - I went and bought a [trashcan](items), a [vacuum cleaner](items), a [curtain](items)
+      - I went and bought a [door](items), a [lamp](items), and a [window](items)
+      - I went and bought a [pen](items)
+      - I went and bought a [computer](items), and a [notebook](items)
+      - I went and bought a [desk](items), a um [pencil](items) and a [bookcase](items)
+      - I went and bought a [book](items) and a [chair](items) and a [cardboard](items)
+      - I went and bought a [paper](items), a [glue](items), and a [door](items)
+      - I went to the um store for a [ruler](items)
+      - I went to aah the store for a [clock](items) and a [whiteboard](items)
+      - I went to the store for a [car](items), a [bicycle](items), and a [scooter](items)
+      - I went to the store for a um [wallet](items) and a [purse](items), and a [belt](items)
+      - I went to the store for [clothes](items), and a [top](items)
+      - I went to the store for a [shirt](items), [trousers](items) and ahh [pants](items)
+      - I went to the store for a [shorts](items), a [skirt](items), a [dress](items) and a um [frock](items),
+      - I went to the store for a [sweater](items) and a [jersey](items)
+      - I went to the store for um [shoes](items)
+      - I went to the shops to buy a [sandals](items) and [boots](items)
+      - I went to the shops to buy a [flip-flops](items) and um [slip-slops](items)
+      - I went to the shops to buy a [bag](items) and [backpack](items)
+      - I went to the shops to buy a [ruksak](items) and [hat](items)
+      - I went to the shops to buy a [cap](items) and [gloves](items)
+      - I went to the shops to buy a [sunglasses](items) and [spectacles](items)
+      - I went to the shops to buy a [glasses](items) and [luggage](items)
+      - I went to the shops to buy a [suitcase](items) and [box](items)
+      - I went to the shops to buy a [helmet](items) and a [toothbrush](items) and a um [key](items) and [oats](items)
+      - I went to the shops to buy [cereal](items)
+      - I went to the shops to buy a [oatmeal](items) and [porridge](items)
+      - I went to the shops to buy [pancakes](items)
+      - I bought a [crepes](items), [flapjacks](items), [crumpets](items) and [cake](items)
+      - I bought a [muffin](items), [scone](items), [waffles](items) and [fruit](items)
+      - I bought a [bananas](items), [strawberries](items), [blueberries](items) and [blackberries](items)
+      - I bought a [berries](items), [mangos](items)
+      - I bought [apples](items) and [oranges](items)
+      - I bought a [juice](items)
+      - I bought aah [vegetables](items), [onions](items) and [brinjals](items)
+      - I bought [aubergines](items), [potatoes](items) and [carrots](items), [peanut butter](items)
+      - I went to the market and bought [eggplants](items)
+      - I went to the market and bought [chicken](items) and [pie](items)
+      - I went to the market and bought [bread](items) and ahh um [pasta](items) 
+      - I went to the market and bought [pizza](items) and [rice](items)
+      - I went to the market and bought [popcorn](items) and [cookies](items)
+      - I went to the market and bought [chocolate](items) and [sweets](items)
+      - I went to the market and bought um [gummies](items)
+      - I went to the market and bought [flour](items)
+      - I went to the market and bought ahh [sugar](items) and um [milk](items)
+      - I went to the market and bought [oil](items) and [vinegar](items)
+      - I went to the market and bought [sauces](items) and [ketchup](items)
+      - I went to the shops to get a umm [plant](items) and [flowers](items) and a [toy](items) and [toys](items)
+      - I went to the shops to get a [barbie](items)
+      - I went to the shops to get [lego](items) and a [puzzle](items) and a [doll](items)
+      - I went to the shops to get a [batman](items) and [spiderman](items)
+      - I went to the shops to get a [superman](items), [laptop](items), and [ipad](items)
+      - I went to the shops to get an [ipod](items) and a [tablet](items)
+      - I went to the shops to get a [computer](items)
+      - I went to the shops to get a [tv](items)
+      - I went to the shops to get an [animal](items) and a [pet](items)
 
   - intent: greet
     examples: |
@@ -31,7 +84,7 @@ nlu:
       - goodmorning
       - goodevening
       - good
-  
+
   - intent: utter_introduction
     examples: |
       - I'm rachel
@@ -96,12 +149,14 @@ nlu:
       - I want to play the counting game 
       - I want to count to ten 
       - Can i count
+      - Hey can I show you how far can count?
 
   - intent: math_game_count
     examples: |
       - [one](math_game_number), [two](math_game_number), [three](math_game_number), [four](math_game_number), [five](math_game_number), [six](math_game_number), [seven](math_game_number), [eight](math_game_number), [nine](math_game_number), [ten](math_game_number)
       - um [one](math_game_number), [two](math_game_number)
       - yay [one](math_game_number)
+      - I think [4](math_game_number) and then [5](math_game_number)
       - [one](math_game_number), [two](math_game_number), and [three](math_game_number)
       - [1](math_game_number), [2](math_game_number), and [3](math_game_number)
       - [1](math_game_number) [2](math_game_number) [3](math_game_number) [4](math_game_number) [5](math_game_number) [6](math_game_number) [7](math_game_number) [8](math_game_number) [9](math_game_number) [10](math_game_number) [11](math_game_number)
@@ -170,7 +225,7 @@ nlu:
       - are you a toy?
       - are you a toy or a human?
       - are you a robot?
-  
+
   - intent: ask_what_possible
     examples: |
       - What can we do?
@@ -193,7 +248,7 @@ nlu:
       - How does I went to the market work?
       - The memory game
       - Memory game
-  
+
   - intent: ask_about_math_game
     examples: |
       - How do I play the maths game?

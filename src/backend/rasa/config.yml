@@ -14,17 +14,21 @@ pipeline:
   - name: RegexFeaturizer
   - name: LexicalSyntacticFeaturizer
   - name: CountVectorsFeaturizer
-  # - name: MitieFeaturizer
-  # pooling: mean
   - name: CountVectorsFeaturizer
     analyzer: char_wb
     min_ngram: 1
     max_ngram: 4
+  # - name: rasa_nlu_examples.featurizers.dense.BytePairFeaturizer
+  #   lang: en
+  #   vs: 5000
+  #   dim: 50
   - name: DIETClassifier
     epochs: 100
     use_masked_language_model: true
     constrain_similarities: true
-  - name: EntitySynonymMapper
+  # - name: CRFEntityExtractor
+  #   epochs: 100
+  #   constrain_similarities: true
   - name: ResponseSelector
     epochs: 100
     constrain_similarities: true

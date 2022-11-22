@@ -1,7 +1,6 @@
-version: "3.1"
+version: "3.0"
 
 stories:
-    
   - story: introduce
     steps:
       - intent: greet
@@ -10,28 +9,37 @@ stories:
       - action: utter_make_introduction
 
   - story: onboarding with memory game
-    steps: 
+    steps:
       - intent: ask_what_possible
       - action: utter_what_possible
       - intent: ask_about_memory_game
       - action: utter_explain_memory_game
-  
+
   - story: onboarding with math game
-    steps: 
+    steps:
       - intent: ask_what_possible
       - action: utter_what_possible
       - intent: ask_about_math_game
       - action: utter_explain_math_game
-  
+
+  - story: onboarding with math game unhappy
+    steps:
+      - intent: ask_what_possible
+      - action: utter_what_possible
+      - intent: affirm
+      - action: utter_repeat_whats_possible
+      - intent: ask_about_math_game
+      - action: utter_explain_math_game
+
   - story: onboarding with math game path 2
     steps:
-    - intent: ask_about_math_game
-    - action: utter_explain_math_game
-  
+      - intent: ask_about_math_game
+      - action: utter_explain_math_game
+
   - story: onbarding with memory game path 2
     steps:
-    - intent: ask_about_memory_game
-    - action: utter_explain_memory_game
+      - intent: ask_about_memory_game
+      - action: utter_explain_memory_game
 
   - story: choose game
     steps:
@@ -84,6 +92,18 @@ stories:
       - action: action_math_game_count
       - intent: math_game_count
       - action: action_math_game_count
+
+  # - story: math_game_count start again
+  #   steps:
+  #     - intent: play_math_game_count
+  #     - action: utter_start_math_game_count
+  #     - action: action_create_math_game_file # Remove existing file and create new file
+  #     - intent: math_game_count
+  #     - action: action_math_game_count
+  #     - intent: math_game_count
+  #     - action: action_math_game_count
+  #     - intent: math_game_count
+  #     - action: action_math_game_count
 
   - story: math_game_count unhappy path 1
     steps:

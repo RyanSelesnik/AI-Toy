@@ -7,7 +7,7 @@ from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk import Action, Tracker
 from typing import Any, Text, Dict, List
 import os
-from math_game_utils import map_entities_to_ints, list_is_valid, reset_game
+from math_game_utils import map_entities_to_ints, list_is_valid, reset_game, get_last_number
 
 PATH_TO_FILE = './latest_number.txt'
 
@@ -75,9 +75,10 @@ class MathGameCount(Action):
             dispatcher.utter_message(
                 text=f"Wow, you got to {last_num}, can you keep going?")
         else:
-            last_last_num = list_of_ints[-2]
+            # last_last_num = list_of_ints[-2]
+            last_val_num = get_last_number(PATH_TO_FILE)
             dispatcher.utter_message(
-                text=f"Oops you lost, but you did great you managed to count all the way to {last_last_num} ")
+                text=f"Oops you lost, but you did great you managed to count all the way to {last_val_num} ")
             reset_game(PATH_TO_FILE)
 
         return []

@@ -64,6 +64,11 @@ def store_latest_number(latest_number, path_to_number_file):
         f.write(latest_number)
 
 
+def get_last_number(path_to_number_file):
+    with open(path_to_number_file, 'r+') as f:
+        return f.read()
+
+
 def is_int(string):
     try:
         return type(int(string)) is int

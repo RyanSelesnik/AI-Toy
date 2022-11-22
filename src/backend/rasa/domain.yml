@@ -1,4 +1,4 @@
-version: "3.1"
+version: "3.0"
 
 intents:
   - greet
@@ -39,9 +39,8 @@ slots:
     mappings:
       - type: from_entity
         entity: items
-        
-responses:
 
+responses:
   utter_cheer_up:
     - text: "Here is something to cheer you up:"
       image: "https://i.imgur.com/nGF1K8f.jpg"
@@ -65,7 +64,7 @@ responses:
     - text: "I am a toy"
 
   utter_start_math_game_count:
-    - text: "Great, why don't you show me how far you can count, starting from one?"
+    - text: "Great, why don't you start counting from a number between one and ten?"
 
   utter_go_ahead:
     - text: "Great, go ahead!"
@@ -76,7 +75,10 @@ responses:
     - text: Ahh, I'm sad to see you go. But you did a great job! Do you want to play again?
     - text: Sure, well done for a great game. Another round?
     - text: That was fun! You have a great memory. Keep playing to improve it even further. Should we have a rematch?
-  
+
+  utter_repeat_whats_possible:
+    - text: Oops, please choose the memory game or the math game
+
   utter_what_possible:
     - text: "We can play the memory game, called I went to the Market and I Bought... or we can play the math game. Do you want to know more about these?"
     - text: "We can play one of two games: the memory game or the maths game! Want to know more?"
@@ -104,7 +106,6 @@ responses:
     - text: "I love that name, glad to meet you! I'm DlalaBot."
     - text: "Pleased to meet you! I am called DlalaBot."
     - text: "Cool name! My name is DlalaBot."
-
 
 session_config:
   session_expiration_time: 60

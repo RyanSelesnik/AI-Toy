@@ -7,12 +7,12 @@ import whisper
 import tempfile
 import os
 import requests
-#from playsound import playsound
+# from playsound import playsound
 
 
 parser = argparse.ArgumentParser(
     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-parser.add_argument("--model", default="tiny", help="Model to use",
+parser.add_argument("--model", default="tiny.en", help="Model to use",
                     choices=["tiny", "base", "small", "medium", "large"])
 parser.add_argument("--english", default=True,
                     help="Whether to use English model", type=bool)
@@ -60,9 +60,13 @@ class SpokenDialogueSystem():
             result = self.audio_model.transcribe(
                 self.save_path,
                 language='english',
-                temperature=0.2)
+                beam_size=10,
+                temperature=0.1)
         else:
-            result = self.audio_model.transcribe(self.save_path)
+            result = self.audio_model.transcribe(
+                self.save_path,
+                language='english',
+                temperature=0.2)
 
         if not args.verbose:
             return result["text"]
@@ -75,8 +79,8 @@ class SpokenDialogueSystem():
         until the user utters a stop word
         """
 
-        with sr.Microphone(sample_rate=16000) as source:
-            print("Speak...")
+        with sr.Microphone(sample_rate=16000, device_index=0) as source:
+            print("Speak...\n\n")
             while True:
 
                 audio_clip = self.record_audio_stream(source)
@@ -88,13 +92,12 @@ class SpokenDialogueSystem():
 
                 # If the predicted text is not empty, get a response from the backend
                 if predicted_text != '':
+                    print(f'You said: {predicted_text}\n\n')
                     responses = self.get_bot_response(predicted_text)
-                    print(f'responses: {responses}')
                     for response in responses:
+                        print(f'DlalaBot: {response}')
                         self.text_to_speech(response)
-
-                    print(f'input: {predicted_text}')
-                    # print(f'bot response: {response}')
+                    print('\n')
 
                 if self.check_stop_word(predicted_text):
                     break
@@ -109,7 +112,7 @@ class SpokenDialogueSystem():
         # response = requests.post(url, json=payload)
         # data = io.BytesIO(response.content)
         # audio = AudioSegment.from_file(data)
-        # audio.export('./wav/test.wav', format="wav")
+        # audio.export('./wav/test.wav', format="wav"a
         # playsound('./wav/test.wav')
 
     def get_bot_response(self, transcribed_text):
