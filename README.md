@@ -26,7 +26,6 @@ The methodology involves the following steps:
 4. Text-to-Speech: Communicating the results back to the child.
 
 ### Automatic Speech Recognition
-\label{ssec:asr}
 
 The ASR component converts the child's acoustic utterance to a string of text. In this work, pre-trained models are used to assess their performance on children's speech. The models selected are Wav2Vec 2.0 and Whisper. Wav2Vec 2.0 is trained on unlabelled speech data, while Whisper is trained on labelled speech data. The performance and complexity trade-off between different variants of these models are compared.
 
